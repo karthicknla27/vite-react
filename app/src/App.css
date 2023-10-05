@@ -42,7 +42,6 @@ textarea {
   font-size: 1rem;
 }
 
-/* Style the submit button */
 button[type="submit"] {
   background-color: #007bff;
   color: #fff;
@@ -75,6 +74,8 @@ button[type="submit"] {
   margin-bottom: 20px;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+
 }
 
 .movie-card h1 {
