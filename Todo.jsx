@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
 
 const TodoApp = () => {
-  const [todos, setTodos] = useState([]);
+     const initialTodos = JSON.parse(localStorage.getItem('todos')) || [];
+
+  const [todos, setTodos] = useState(initialTodos);
   const [text, setText] = useState('');
   const [editIndex, setEditIndex] = useState(-1);
   const [editText, setEditText] = useState('');
 
   // Load todos from local storage when the component mounts
-  useEffect(() => {
-    const storedTodos = JSON.parse(localStorage.getItem('todos')) || [];
-    setTodos(storedTodos);
-  }, []);
+//   useEffect(() => {
+//     const storedTodos = JSON.parse(localStorage.getItem('todos'));
+//     setTodos(storedTodos);
+//   }, []);
 
   // Save todos to local storage whenever they change
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+  }, );
 
   const addTodo = () => {
-    if (text.trim() !== '') {
+     {
       setTodos([...todos, text]);
       setText('');
     }
@@ -41,7 +43,7 @@ const TodoApp = () => {
 
   return (
     <div>
-      <h1>Todo App</h1>
+      <h1>Like App</h1>
       <input
         type="text"
         value={text}
