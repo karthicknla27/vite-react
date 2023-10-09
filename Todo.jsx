@@ -21,15 +21,21 @@ const TodoApp = () => {
 
   const addTodo = () => {
      {
-      setTodos([...todos, text]);
+        const newTodo = {
+            id: new Date().getTime(), // Generates a unique id based on current time
+            text: text, // Use the text entered by the user
+          };
+      setTodos([...todos, newTodo]);
       setText('');
     }
   };
 
-  const updateTodo = (index) => {
+  const updateTodo = (id) => {
     if (editText.trim() !== '') {
-      const updatedTodos = [...todos];
-      updatedTodos[index] = editText;
+        const updatedTodos = todos.map((todo) =>
+        todo.id === id ? { ...todo, text: editText } : todo
+      );
+
       setTodos(updatedTodos);
       setEditIndex(-1);
       setEditText('');
@@ -52,28 +58,29 @@ const TodoApp = () => {
       />
       <button onClick={addTodo}>Add</button>
       <ul>
-        {todos.map((todo, index) => (
-          <li key={index}>
-            {editIndex === index ? (
-              <div>
-                <input
-                  type="text"
-                  value={editText}
-                  onChange={(e) => setEditText(e.target.value)}
-                />
-                <button onClick={() => updateTodo(index)}>Update</button>
-                <button onClick={() => setEditIndex(-1)}>Cancel</button>
-              </div>
-            ) : (
-              <div>
-                <p>{todo}</p>
-                <button onClick={() => setEditIndex(index)}>Edit</button>
-                <button onClick={() => deleteTodo(index)}>Delete</button>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
+  {todos.map((todo) => (
+    <li key={todo.id}>
+      {editIndex === todo.id ? (
+        <div>
+          <input
+            type="text"
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+          />
+          <button onClick={() => updateTodo(todo.id)}>Update</button>
+          <button onClick={() => setEditIndex(-1)}>Cancel</button>
+        </div>
+      ) : (
+        <div>
+          <p>{todo.text}</p>
+          <button onClick={() => setEditIndex(todo.id)}>Edit</button>
+          <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+        </div>
+      )}
+    </li>
+  ))}
+</ul>
+
     </div>
   );
 };
