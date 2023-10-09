@@ -1,50 +1,50 @@
 import React, { useState, useEffect } from 'react';
 
 const TodoApp = () => {
-     const initialTodos = JSON.parse(localStorage.getItem('todos')) || [];
+     const initiallikes = JSON.parse(localStorage.getItem('likes')) || [];
 
-  const [todos, setTodos] = useState(initialTodos);
+  const [likes, setlikes] = useState(initiallikes);
   const [text, setText] = useState('');
   const [editIndex, setEditIndex] = useState(-1);
   const [editText, setEditText] = useState('');
 
-  // Load todos from local storage when the component mounts
+  // Load likes from local storage when the component mounts
 //   useEffect(() => {
-//     const storedTodos = JSON.parse(localStorage.getItem('todos'));
-//     setTodos(storedTodos);
+//     const storedlikes = JSON.parse(localStorage.getItem('likes'));
+//     setlikes(storedlikes);
 //   }, []);
 
-  // Save todos to local storage whenever they change
+  // Save likes to local storage whenever they change
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
+    localStorage.setItem('likes', JSON.stringify(likes));
   }, );
 
-  const addTodo = () => {
+  const addlike = () => {
      {
-        const newTodo = {
+        const newlike = {
             id: new Date().getTime(), // Generates a unique id based on current time
             text: text, // Use the text entered by the user
           };
-      setTodos([...todos, newTodo]);
+      setlikes([...likes, newlike]);
       setText('');
     }
   };
 
-  const updateTodo = (id) => {
+  const updatelike = (id) => {
     if (editText.trim() !== '') {
-        const updatedTodos = todos.map((todo) =>
-        todo.id === id ? { ...todo, text: editText } : todo
+        const updatedlikes = likes.map((like) =>
+        like.id === id ? { ...like, text: editText } : like
       );
 
-      setTodos(updatedTodos);
+      setlikes(updatedlikes);
       setEditIndex(-1);
       setEditText('');
     }
   };
 
-  const deleteTodo = (id) => {
-    const updatedTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(updatedTodos);
+  const deletelike = (id) => {
+    const updatedlikes = likes.filter((like) => like.id !== id);
+    setlikes(updatedlikes);
   };
 
   return (
@@ -54,27 +54,27 @@ const TodoApp = () => {
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Enter a new todo"
+        placeholder="Enter a new like"
       />
-      <button onClick={addTodo}>Add</button>
+      <button onClick={addlike}>Add</button>
       <ul>
-  {todos.map((todo) => (
-    <li key={todo.id}>
-      {editIndex === todo.id ? (
+  {likes.map((like) => (
+    <li key={like.id}>
+      {editIndex === like.id ? (
         <div>
           <input
             type="text"
             value={editText}
             onChange={(e) => setEditText(e.target.value)}
           />
-          <button onClick={() => updateTodo(todo.id)}>Update</button>
+          <button onClick={() => updatelike(like.id)}>Update</button>
           <button onClick={() => setEditIndex(-1)}>Cancel</button>
         </div>
       ) : (
         <div>
-          <p>{todo.text}</p>
-          <button onClick={() => setEditIndex(todo.id)}>Edit</button>
-          <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+          <p>{like.text}</p>
+          <button onClick={() => setEditIndex(like.id)}>Edit</button>
+          <button onClick={() => deletelike(like.id)}>Delete</button>
         </div>
       )}
     </li>
